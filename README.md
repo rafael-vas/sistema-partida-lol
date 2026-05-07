@@ -10,7 +10,7 @@ A **Plataforma de Rastreamento de Qualidade** é um sistema focado no ciclo de v
 
 O objetivo é resolver um problema real enfrentado por equipes de desenvolvimento: o controle eficiente de demandas com regras claras de responsabilidade (*ownership*), fluxo de status e auditoria.
 
-O projeto foi organizado em classes separadas para modelagem, regras de negócio e execução, usando herança, encapsulamento e polimorfismo no domínio de tickets.
+O projeto foi organizado em classes separadas para modelagem, regras de negócio e execução, usando herança, encapsulamento, polimorfismo e coleções no domínio de tickets.
 
 ---
 
@@ -110,10 +110,10 @@ Responsável por:
 
 ### 🗂️ Estruturas de Dados
 
-* Uso de **vetores de objetos (arrays)**:
+* Uso de **coleções**:
 
-  * `Ticket[]`
-  * `String[]` (histórico)
+  * `List<Ticket>` para tickets
+  * `List<String>` para histórico
 
 * Limites fixos na versão atual:
 
@@ -149,6 +149,7 @@ Toda mudança:
 ### ⚠️ Tratamento de Erros
 
 * Sem exceções customizadas
+* A entrada inválida no menu é tratada com `try-catch`
 * Operações inválidas retornam:
 
   * `false` ou `null`
@@ -164,7 +165,7 @@ Toda mudança:
 * **Coesão** → Separação entre entidades e regras de negócio
 * **Sobrecarga** → Métodos com diferentes assinaturas
 * **Sobreescrita** → `toString()` e `getTipo()`
-* **Manipulação de Arrays** → Estrutura de dados principal
+* **Manipulação de Coleções** → Estrutura de dados principal
 
 ---
 
@@ -202,6 +203,8 @@ cd qa-track
 
 Ao iniciar, o sistema pede o cadastro inicial de um Gestor, um Desenvolvedor e um QA. Depois disso, o menu da versão atual libera as funcoes basicas da entrega inicial: criar bug, listar tickets, atribuir responsavel, alterar status e consultar historico.
 
+O fluxo da aplicação é totalmente em console: entrada do usuário, processamento das regras de negócio no serviço e saída com o resultado na tela.
+
 As classes `Feature` e `Melhoria` já existem na modelagem e no serviço, mas ainda nao estao expostas no menu de console.
 
 Também é possível executar pelo terminal, se o JDK estiver instalado, compilando apenas os arquivos usados pela aplicação principal:
@@ -216,6 +219,8 @@ Se a IDE pedir um ponto de entrada, use `sistema.app.Main` como classe principal
 
 ## ✅ O que esta implementado nesta versao
 
+* Uso de `ArrayList` para tickets e histórico
+* Menu funcional com tratamento de entrada inválida
 * Criacao de bugs com prioridade, passos para reproduzir e ambiente
 * Listagem de tickets cadastrados
 * Atribuicao de responsavel pelo gestor
