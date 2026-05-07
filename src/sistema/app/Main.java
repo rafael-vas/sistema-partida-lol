@@ -1,6 +1,7 @@
 package sistema.app;
 
 import java.util.Scanner;
+import java.util.List;
 
 import sistema.model.Bug;
 import sistema.model.Desenvolvedor;
@@ -34,30 +35,34 @@ public class Main {
             System.out.println("0 - Sair");
             System.out.print("Opcao: ");
 
-            int opcao = lerInteiro(scanner);
-            switch (opcao) {
-                case 1:
-                    criarBug(scanner, sistemaTickets, gestor);
-                    break;
-                case 2:
-                    listarTickets(sistemaTickets);
-                    break;
-                case 3:
-                    atribuirResponsavel(scanner, sistemaTickets, gestor, desenvolvedor);
-                    break;
-                case 4:
-                    alterarStatus(scanner, sistemaTickets, desenvolvedor, qa);
-                    break;
-                case 5:
-                    mostrarHistorico(scanner, sistemaTickets);
-                    break;
-                case 0:
-                    executando = false;
-                    System.out.println("Encerrando sistema.");
-                    break;
-                default:
-                    System.out.println("Opcao invalida.");
-                    break;
+            try {
+                int opcao = lerInteiro(scanner);
+                switch (opcao) {
+                    case 1:
+                        criarBug(scanner, sistemaTickets, gestor);
+                        break;
+                    case 2:
+                        listarTickets(sistemaTickets);
+                        break;
+                    case 3:
+                        atribuirResponsavel(scanner, sistemaTickets, gestor, desenvolvedor);
+                        break;
+                    case 4:
+                        alterarStatus(scanner, sistemaTickets, desenvolvedor, qa);
+                        break;
+                    case 5:
+                        mostrarHistorico(scanner, sistemaTickets);
+                        break;
+                    case 0:
+                        executando = false;
+                        System.out.println("Encerrando sistema.");
+                        break;
+                    default:
+                        System.out.println("Opcao invalida.");
+                        break;
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
         }
 
@@ -79,8 +84,8 @@ public class Main {
     }
 
     private static void listarTickets(SistemaTickets sistemaTickets) {
-        Ticket[] tickets = sistemaTickets.listarTickets();
-        if (tickets.length == 0) {
+        List<Ticket> tickets = sistemaTickets.listarTickets();
+        if (tickets.isEmpty()) {
             System.out.println("Nenhum ticket cadastrado.");
             return;
         }
@@ -162,8 +167,8 @@ public class Main {
         }
 
         System.out.println("=== HISTORICO DO TICKET #" + ticket.getId() + " ===");
-        String[] historico = ticket.getHistorico();
-        if (historico.length == 0) {
+        List<String> historico = ticket.getHistorico();
+        if (historico.isEmpty()) {
             System.out.println("Nenhum evento registrado.");
             return;
         }
@@ -174,8 +179,8 @@ public class Main {
     }
 
     private static Ticket escolherTicket(Scanner scanner, SistemaTickets sistemaTickets) {
-        Ticket[] tickets = sistemaTickets.listarTickets();
-        if (tickets.length == 0) {
+        List<Ticket> tickets = sistemaTickets.listarTickets();
+        if (tickets.isEmpty()) {
             System.out.println("Nenhum ticket cadastrado.");
             return null;
         }
@@ -234,14 +239,14 @@ public class Main {
     }
 
     private static int lerInteiro(Scanner scanner) {
-        while (!scanner.hasNextInt()) {
-            scanner.nextLine();
-            System.out.print("Digite um numero valido: ");
+        while (true) {
+            String entrada = scanner.nextLine();
+            try {
+                return Integer.parseInt(entrada.trim());
+            } catch (NumberFormatException e) {
+                System.out.print("Digite um numero valido: ");
+            }
         }
-
-        int valor = scanner.nextInt();
-        scanner.nextLine();
-        return valor;
     }
 
     private static String lerLinha(Scanner scanner) {
