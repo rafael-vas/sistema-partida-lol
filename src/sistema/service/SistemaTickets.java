@@ -1,5 +1,8 @@
 package sistema.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import sistema.model.Bug;
 import sistema.model.Desenvolvedor;
 import sistema.model.Feature;
@@ -12,16 +15,13 @@ import sistema.model.Ticket;
 import sistema.model.Usuario;
 
 public class SistemaTickets {
-    private int capacidadeTickets;
+    private static final int LIMITE_TICKETS = 100;
 
     private int proximoIdTicket = 1;
-    private Ticket[] tickets;
-    private int totalTickets;
+    private List<Ticket> tickets;
 
     public SistemaTickets() {
-        this.capacidadeTickets = 100;
-        this.tickets = new Ticket[capacidadeTickets];
-        this.totalTickets = 0;
+        this.tickets = new ArrayList<>();
     }
 
     public Bug criarBug(
@@ -42,12 +42,12 @@ public class SistemaTickets {
             String passosParaReproduzir,
             String ambiente
     ) {
-        if (totalTickets >= tickets.length) {
+        if (tickets.size() >= LIMITE_TICKETS) {
             return null;
         }
 
         Bug bug = new Bug(proximoIdTicket++, titulo, descricao, criador, prioridade, passosParaReproduzir, ambiente);
-        adicionarTicket(bug);
+        tickets.add(bug);
         return bug;
     }
 
@@ -67,12 +67,12 @@ public class SistemaTickets {
             Prioridade prioridade,
             String valorDeNegocio
     ) {
-        if (totalTickets >= tickets.length) {
+        if (tickets.size() >= LIMITE_TICKETS) {
             return null;
         }
 
         Feature feature = new Feature(proximoIdTicket++, titulo, descricao, criador, prioridade, valorDeNegocio);
-        adicionarTicket(feature);
+        tickets.add(feature);
         return feature;
     }
 
@@ -92,19 +92,19 @@ public class SistemaTickets {
             Prioridade prioridade,
             String areaImpactada
     ) {
-        if (totalTickets >= tickets.length) {
+        if (tickets.size() >= LIMITE_TICKETS) {
             return null;
         }
 
         Melhoria melhoria = new Melhoria(proximoIdTicket++, titulo, descricao, criador, prioridade, areaImpactada);
-        adicionarTicket(melhoria);
+        tickets.add(melhoria);
         return melhoria;
     }
 
     public Ticket buscarTicketPorId(int idTicket) {
-        for (int i = 0; i < totalTickets; i++) {
-            if (tickets[i].getId() == idTicket) {
-                return tickets[i];
+        for (Ticket ticket : tickets) {
+            if (ticket.getId() == idTicket) {
+                return ticket;
             }
         }
         return null;
@@ -212,26 +212,12 @@ public class SistemaTickets {
         return "Nao foi possivel alterar o status.";
     }
 
-    public Ticket[] listarTickets() {
-        Ticket[] copia = new Ticket[totalTickets];
-        for (int i = 0; i < totalTickets; i++) {
-            copia[i] = tickets[i];
-        }
-        return copia;
+    public List<Ticket> listarTickets() {
+        return new ArrayList<>(tickets);
     }
 
     public int getTotalTickets() {
-        return totalTickets;
-    }
-
-    private boolean adicionarTicket(Ticket ticket) {
-        if (totalTickets >= tickets.length) {
-            return false;
-        }
-
-        tickets[totalTickets] = ticket;
-        totalTickets++;
-        return true;
+        return tickets.size();
     }
 
     private boolean validarTransicaoStatus(Ticket ticket, StatusTicket novoStatus, Usuario autor) {
