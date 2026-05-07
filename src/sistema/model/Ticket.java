@@ -1,9 +1,12 @@
 package sistema.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Ticket {
-    private int capacidadeHistorico;
+    private static final int LIMITE_HISTORICO = 100;
+
     private Usuario usuarioSistema;
 
     private int id;
@@ -15,11 +18,9 @@ public abstract class Ticket {
     private StatusTicket status;
     private LocalDateTime criadoEm;
     private LocalDateTime atualizadoEm;
-    private String[] historico;
-    private int totalEventosHistorico;
+    private List<String> historico;
 
     protected Ticket(int id, String titulo, String descricao, Usuario criador, Prioridade prioridade) {
-        this.capacidadeHistorico = 100;
         this.usuarioSistema = new Gestor(0, "Sistema");
         this.id = id;
 
@@ -50,8 +51,7 @@ public abstract class Ticket {
         this.status = StatusTicket.ABERTO;
         this.criadoEm = LocalDateTime.now();
         this.atualizadoEm = this.criadoEm;
-        this.historico = new String[capacidadeHistorico];
-        this.totalEventosHistorico = 0;
+        this.historico = new ArrayList<>();
         registrarHistorico("Ticket criado por " + this.criador.getNome() + " com prioridade " + this.prioridade + ".");
     }
 
@@ -91,12 +91,8 @@ public abstract class Ticket {
         return atualizadoEm;
     }
 
-    public String[] getHistorico() {
-        String[] copia = new String[totalEventosHistorico];
-        for (int i = 0; i < totalEventosHistorico; i++) {
-            copia[i] = historico[i];
-        }
-        return copia;
+    public List<String> getHistorico() {
+        return new ArrayList<>(historico);
     }
 
     public void definirResponsavel(Usuario responsavel, Usuario autor) {
@@ -128,11 +124,10 @@ public abstract class Ticket {
     }
 
     protected void registrarHistorico(String evento) {
-        if (totalEventosHistorico >= historico.length) {
+        if (historico.size() >= LIMITE_HISTORICO) {
             return;
         }
-        historico[totalEventosHistorico] = LocalDateTime.now() + " - " + evento;
-        totalEventosHistorico++;
+        historico.add(LocalDateTime.now() + " - " + evento);
     }
 
     public abstract String getTipo();
