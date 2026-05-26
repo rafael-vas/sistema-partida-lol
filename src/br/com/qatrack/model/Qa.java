@@ -1,4 +1,4 @@
-package sistema.model;
+package br.com.qatrack.model;
 
 public class Qa extends Usuario {
     public Qa(int id, String nome) {

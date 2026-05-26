@@ -1,4 +1,4 @@
-package sistema.model;
+package br.com.qatrack.model;
 
 public class Desenvolvedor extends Usuario {
     public Desenvolvedor(int id, String nome) {

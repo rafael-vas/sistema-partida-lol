@@ -1,4 +1,4 @@
-package sistema.model;
+package br.com.qatrack.model;
 
 public enum Prioridade {
     BAIXA,

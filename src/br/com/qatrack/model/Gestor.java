@@ -1,4 +1,4 @@
-package sistema.model;
+package br.com.qatrack.model;
 
 public class Gestor extends Usuario {
     public Gestor(int id, String nome) {

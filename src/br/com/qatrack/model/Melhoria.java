@@ -1,9 +1,9 @@
-package sistema.model;
+package br.com.qatrack.model;
 
-public class Feature extends Ticket {
-    private String valorDeNegocio;
+public class Melhoria extends Ticket {
+    private String areaImpactada;
 
-    public Feature(
+    public Melhoria(
         int id,
         String titulo,
         String descricao,
@@ -13,35 +13,37 @@ public class Feature extends Ticket {
         this(id, titulo, descricao, criador, prioridade, "Nao informado");
     }
 
-    public Feature(
+    public Melhoria(
         int id,
         String titulo,
         String descricao,
         Usuario criador,
         Prioridade prioridade,
-        String valorDeNegocio
+        String areaImpactada
     ) {
         super(id, titulo, descricao, criador, prioridade);
 
-        if (valorDeNegocio == null || valorDeNegocio.isBlank()) {
-            this.valorDeNegocio = "Nao informado";
+        if (areaImpactada == null || areaImpactada.isBlank()) {
+            this.areaImpactada = "Nao informado";
         } else {
-            this.valorDeNegocio = valorDeNegocio;
+            this.areaImpactada = areaImpactada;
         }
     }
 
-    public String getValorDeNegocio() {
-        return valorDeNegocio;
+    public String getAreaImpactada() {
+        return areaImpactada;
     }
 
     @Override
     public String getTipo() {
-        return "Feature";
+        return "Melhoria";
     }
 
     @Override
     public String toString() {
-        return super.toString() + " | Valor de negocio: " + valorDeNegocio;
+        return super.toString() + " | Area impactada: " + areaImpactada;
     }
 }
+
+
 

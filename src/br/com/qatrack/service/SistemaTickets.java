@@ -1,18 +1,18 @@
-package sistema.service;
+package br.com.qatrack.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import sistema.model.Bug;
-import sistema.model.Desenvolvedor;
-import sistema.model.Feature;
-import sistema.model.Gestor;
-import sistema.model.Melhoria;
-import sistema.model.Prioridade;
-import sistema.model.Qa;
-import sistema.model.StatusTicket;
-import sistema.model.Ticket;
-import sistema.model.Usuario;
+import br.com.qatrack.model.Bug;
+import br.com.qatrack.model.Desenvolvedor;
+import br.com.qatrack.model.Feature;
+import br.com.qatrack.model.Gestor;
+import br.com.qatrack.model.Melhoria;
+import br.com.qatrack.model.Prioridade;
+import br.com.qatrack.model.Qa;
+import br.com.qatrack.model.StatusTicket;
+import br.com.qatrack.model.Ticket;
+import br.com.qatrack.model.Usuario;
 
 public class SistemaTickets {
     private static final int LIMITE_TICKETS = 100;

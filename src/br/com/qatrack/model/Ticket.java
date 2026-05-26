@@ -1,4 +1,4 @@
-package sistema.model;
+package br.com.qatrack.model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public abstract class Ticket {
         this.criadoEm = LocalDateTime.now();
         this.atualizadoEm = this.criadoEm;
         this.historico = new ArrayList<>();
-        registrarHistorico("Ticket criado por " + this.criador.getNome() + " com prioridade " + this.prioridade + ".");
+        registrarHistorico("Ticket criado por " + this.criador.getTipo() + " " + this.criador.getNome() + " com prioridade " + this.prioridade + ".");
     }
 
     public int getId() {
@@ -101,7 +101,7 @@ public abstract class Ticket {
         }
         this.responsavel = responsavel;
         this.atualizadoEm = LocalDateTime.now();
-        registrarHistorico("Responsavel definido para " + responsavel.getNome() + " por " + autor.getNome() + ".");
+        registrarHistorico("Responsavel definido para " + responsavel.getTipo() + " " + responsavel.getNome() + " por " + autor.getTipo() + " " + autor.getNome() + ".");
     }
 
     public void atualizarStatus(StatusTicket novoStatus, Usuario autor, String observacao) {
@@ -112,7 +112,7 @@ public abstract class Ticket {
         this.status = novoStatus;
         this.atualizadoEm = LocalDateTime.now();
 
-        String mensagem = "Status alterado de " + anterior + " para " + novoStatus + " por " + autor.getNome() + ".";
+        String mensagem = "Status alterado de " + anterior + " para " + novoStatus + " por " + autor.getTipo() + " " + autor.getNome() + ".";
         if (observacao != null && !observacao.isBlank()) {
             mensagem += " Obs: " + observacao;
         }
