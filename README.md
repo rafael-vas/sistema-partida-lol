@@ -102,9 +102,9 @@ Responsável por:
 
 ## 🗂️ Estrutura do Projeto
 
-* `src/sistema/model` → entidades do sistema, como `Ticket`, `Bug`, `Feature`, `Melhoria` e os tipos de usuário
-* `src/sistema/service` → regras de negócio e operações do sistema
-* `src/sistema/app` → ponto de entrada da aplicação
+* `src/br/com/qatrack/model` → entidades do sistema, como `Ticket`, `Bug`, `Feature`, `Melhoria` e os tipos de usuário
+* `src/br/com/qatrack/service` → regras de negócio e operações do sistema
+* `src/br/com/qatrack/app` → ponto de entrada da aplicação
 
 ---
 
@@ -199,29 +199,31 @@ cd qa-track
 
 3. Abra o projeto no VS Code ou em outra IDE Java.
 
-4. Execute a classe principal `sistema.app.Main`.
+4. Execute a classe principal `br.com.qatrack.app.Main`.
 
-Ao iniciar, o sistema pede o cadastro inicial de um Gestor, um Desenvolvedor e um QA. Depois disso, o menu da versão atual libera as funcoes basicas da entrega inicial: criar bug, listar tickets, atribuir responsavel, alterar status e consultar historico.
+Ao iniciar, o sistema pede o cadastro inicial de um Gestor, um Desenvolvedor e um QA. Depois disso, o menu da versão final permite criar tickets do tipo Bug, Feature e Melhoria, além de listar tickets, atribuir responsavel, alterar status e consultar historico.
 
 O fluxo da aplicação é totalmente em console: entrada do usuário, processamento das regras de negócio no serviço e saída com o resultado na tela.
 
-As classes `Feature` e `Melhoria` já existem na modelagem e no serviço, mas ainda nao estao expostas no menu de console.
+As classes `Feature` e `Melhoria` agora estão expostas no menu de console, completando a execução dos três tipos de ticket previstos na modelagem.
 
 Também é possível executar pelo terminal, se o JDK estiver instalado, compilando apenas os arquivos usados pela aplicação principal:
 
 ```bash
 mkdir out
-javac -d out src/sistema/model/*.java src/sistema/service/SistemaTickets.java src/sistema/app/Main.java
-java -cp out sistema.app.Main
+javac -d out src/br/com/qatrack/model/*.java src/br/com/qatrack/service/SistemaTickets.java src/br/com/qatrack/app/Main.java
+java -cp out br.com.qatrack.app.Main
 ```
 
-Se a IDE pedir um ponto de entrada, use `sistema.app.Main` como classe principal.
+Se a IDE pedir um ponto de entrada, use `br.com.qatrack.app.Main` como classe principal.
 
 ## ✅ O que esta implementado nesta versao
 
 * Uso de `ArrayList` para tickets e histórico
 * Menu funcional com tratamento de entrada inválida
 * Criacao de bugs com prioridade, passos para reproduzir e ambiente
+* Criacao de features com valor de negocio
+* Criacao de melhorias com area impactada
 * Listagem de tickets cadastrados
 * Atribuicao de responsavel pelo gestor
 * Transicao de status com validacao de perfil e fluxo
